@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include("../partials/meta") %>
+  </head>
+
+  <body>
+    <div class="container pb-4">
+      <div class="d-flex justify-content-between align-items-center">
+        <h1 class="my-4">Listado de Usuarios</h1>
+        <a href="/usuarios/crear" class="btn btn-success">Nuevo</a>
+      </div>
+
+      <table class="table table-bordered table-striped table-hover">
+        <thead>
+          <th>Id</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Edad</th>
+          <th>Acciones</th>
+        </thead>
+        <tbody>
+          <% for (const user of users) { %>
+          <tr>
+            <td><%= user.id %></td>
+            <td><%= user.firstname %></td>
+            <td><%= user.lastname %></td>
+            <td><%= user.age %></td>
+            <td style="width: 1%; white-space: nowrap">
+              <a
+                href="/usuarios/editar/<%= user.id; %>"
+                class="btn btn-sm btn-primary mx-1"
+              >
+                Editar
+              </a>
+              <form
+                action="/usuarios/<%= user.id; %>?_method=DELETE"
+                method="post"
+                class="d-inline"
+              >
+                <button class="btn btn-sm btn-danger me-1" type="submit">
+                  Eliminar
+                </button>
+              </form>
+            </td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
