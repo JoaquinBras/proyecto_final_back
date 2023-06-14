@@ -1,19 +1,16 @@
-const { mongoose, Schema } = require("../db");
+const { mongoose } = require("../db");
 const bcrypt = require("bcryptjs");
 
-const userSchema = new mongoose.Schema({
+const adminSchema = new mongoose.Schema({
   firstname: String,
   lastname: String,
   email: { type: String, unique: true },
   password: String,
-  adress: String,
-  phone: String,
-  cart: [{ type: Schema.Types.ObjectId, ref: "Pedido" }],
 });
 
-userSchema.set("toJSON", { virtuals: true });
+adminSchema.set("toJSON", { virtuals: true });
 
-userSchema.pre("save", async function (next) {
+adminSchema.pre("save", async function (next) {
   // Solo hashear la contraseña si ha sido modificada o es nueva
   if (!this.isModified("password")) {
     return next();
@@ -32,4 +29,4 @@ userSchema.pre("save", async function (next) {
   }
 });
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("Admin", adminSchema);
